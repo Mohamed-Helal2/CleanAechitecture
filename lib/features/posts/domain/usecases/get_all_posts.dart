@@ -6,7 +6,7 @@ import '../entites/post.dart';
 
 class GetAllPostsUseCases {
   final PostRepostiroieas repostiroieas;
-  GetAllPostsUseCases(this.repostiroieas);
+  GetAllPostsUseCases({required this.repostiroieas});
 
   Future<Either<Failure, List<Post>>> call() async {
     return await repostiroieas.getAllpost();

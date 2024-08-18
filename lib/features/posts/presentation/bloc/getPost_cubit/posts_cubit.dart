@@ -10,7 +10,7 @@ import '../../../domain/entites/post.dart';
 part 'posts_state.dart';
 
 class PostsCubit extends Cubit<PostsState> {
-  PostsCubit(this.getAllPostsUseCases) : super(PostsInitial());
+  PostsCubit({required this.getAllPostsUseCases}) : super(PostsInitial());
   final GetAllPostsUseCases getAllPostsUseCases;
 
   getallpost() async {

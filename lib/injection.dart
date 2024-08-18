@@ -19,46 +19,29 @@ final sl = GetIt.instance;
 Future<void> init() async {
   /// features posts
 // Bloc
-  sl.registerFactory(
-    () => PostsCubit(sl()),
-  );
-  sl.registerFactory(
-    () => AddDeleteUpdatePostCubit(sl(), sl(), sl()),
-  );
+  sl.registerFactory(() => PostsCubit(getAllPostsUseCases: sl()));
+  sl.registerFactory(() => AddDeleteUpdatePostCubit(
+      addPostcase: sl(), deletePostcase: sl(), updatePostcase: sl()));
 //use cases
-  sl.registerLazySingleton(
-    () => (GetAllPostsUseCases(sl())),
-  );
-  sl.registerLazySingleton(
-    () => DeletePost(sl()),
-  );
-  sl.registerLazySingleton(
-    () => UpdatePost(sl()),
-  );
-  sl.registerLazySingleton(
-    () => AddPost(sl()),
-  );
+  sl.registerLazySingleton(() => (GetAllPostsUseCases(repostiroieas:  sl())));
+  sl.registerLazySingleton(() => DeletePost(sl()));
+  sl.registerLazySingleton(() => UpdatePost(sl()));
+  sl.registerLazySingleton(() => AddPost(sl()));
 // Repostories
   sl.registerLazySingleton<PostRepostiroieas>(() => PostsRepostoriesImpl(
-      remoteDataSource: sl(), localDataSource: sl(), networkinfoImpl: sl()));
+      remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()));
 // Data Sources
   sl.registerLazySingleton<PostRemoteDataSource>(
-    () => PostRemoteDataSourceImpl(sl()),
-  );
+      () => PostRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<PostLocalDataSource>(
-    () => PostLocalDataSourceImpl(sharedPreferences: sl()),
-  );
+      () => PostLocalDataSourceImpl(sharedPreferences: sl()));
 
   /// core
-  sl.registerLazySingleton<NetworkInfo>(
-    () => NetworkinfoImpl(sl()),
-  );
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkinfoImpl( sl()));
 
   /// External
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
-  sl.registerLazySingleton(
-    () => http.Client(),
-  );
+  sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => InternetConnectionChecker());
 }

@@ -16,7 +16,7 @@ const BaseUrl = 'https://jsonplaceholder.typicode.com/';
 
 class PostRemoteDataSourceImpl implements PostRemoteDataSource {
   final http.Client client;
-  PostRemoteDataSourceImpl(this.client);
+  PostRemoteDataSourceImpl({required this.client});
   @override
   Future<List<PostModel>> getAllPosts() async {
     final response = await client.get(Uri.parse(BaseUrl + 'posts'),

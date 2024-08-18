@@ -12,26 +12,26 @@ import '../../../domain/usecases/delete_post.dart';
 part 'add_delete_update_post_state.dart';
 
 class AddDeleteUpdatePostCubit extends Cubit<AddDeleteUpdatePostState> {
-  AddDeleteUpdatePostCubit(this._addPost, this._deletePost, this._updatePost)
+  AddDeleteUpdatePostCubit({required this.addPostcase,required this.deletePostcase,required this.updatePostcase})
       : super(AddDeleteUpdatePostInitial());
-  final AddPost _addPost;
-  final DeletePost _deletePost;
-  final UpdatePost _updatePost;
+  final AddPost addPostcase;
+  final DeletePost deletePostcase;
+  final UpdatePost updatePostcase;
   addpost(Post post) async {
     emit(LoadingAddDeleteUpdateState());
-    final failureOrSuces = await _addPost(post);
+    final failureOrSuces = await addPostcase(post);
     emit(_eitherDoneMessageOrErrorState(failureOrSuces, Add_Sucess_Message));
   }
 
   updatePost(Post post) async {
     emit(LoadingAddDeleteUpdateState());
-    final failureOrSuces = await _updatePost(post);
+    final failureOrSuces = await updatePostcase(post);
     emit(_eitherDoneMessageOrErrorState(failureOrSuces, Update_Sucess_Message));
   }
 
   deletePost(int id) async {
     emit(LoadingAddDeleteUpdateState());
-    final failureOrSuces = await _deletePost(id);
+    final failureOrSuces = await deletePostcase(id);
     emit(_eitherDoneMessageOrErrorState(failureOrSuces, Delete_Sucess_Message));
   }
 
