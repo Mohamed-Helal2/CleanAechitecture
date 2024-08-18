@@ -14,16 +14,16 @@ typedef Future<Unit> deleteOrAddOrUpdate();
 class PostsRepostoriesImpl implements PostRepostiroieas {
   final PostRemoteDataSource remoteDataSource;
   final PostLocalDataSource localDataSource;
-  final NetworkinfoImpl networkinfoImpl;
+  final NetworkInfo networkInfo;
 
   PostsRepostoriesImpl(
       {required this.remoteDataSource,
       required this.localDataSource,
-      required this.networkinfoImpl});
+      required this.networkInfo});
 
   @override
   Future<Either<Failure, List<Post>>> getAllpost() async {
-    if (await networkinfoImpl.isConnected) {
+    if (await networkInfo.isConnected) {
       try {
         final remotePosts = await remoteDataSource.getAllPosts();
         localDataSource.cachedPosts(remotePosts);
@@ -44,7 +44,7 @@ class PostsRepostoriesImpl implements PostRepostiroieas {
   @override
   Future<Either<Failure, Unit>> addpost(Post post) async {
     final PostModel postModel =
-        PostModel(id: post.id, title: post.title, body: post.body);
+        PostModel(title: post.title, body: post.body);
     return await _getMessage(
       () {
         return remoteDataSource.addpost(postModel);
@@ -74,12 +74,12 @@ class PostsRepostoriesImpl implements PostRepostiroieas {
 
   Future<Either<Failure, Unit>> _getMessage(
     deleteOrAddOrUpdate delteOrUpdateOrAddPost) async {
-    if (await networkinfoImpl.isConnected) {
+    if (await networkInfo.isConnected) {
       try {
         await delteOrUpdateOrAddPost();
         return right(unit);
       } on ServerException {
-        return Left(ServerFailure());
+        return left(ServerFailure());
       }
     } else {
       return left(OffLineFailure());

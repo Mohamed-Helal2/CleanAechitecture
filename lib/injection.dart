@@ -20,14 +20,14 @@ Future<void> init() async {
   /// features posts
 // Bloc
   sl.registerFactory(
-    () => PostsCubit(sl()),
+    () => PostsCubit(getAllPostsUseCases:  sl()),
   );
   sl.registerFactory(
-    () => AddDeleteUpdatePostCubit(sl(), sl(), sl()),
+    () => AddDeleteUpdatePostCubit(addPostcase:  sl(),deletePostcase: sl(),updatePostcase:  sl()),
   );
 //use cases
   sl.registerLazySingleton(
-    () => (GetAllPostsUseCases(sl())),
+    () => ( GetAllPostsUseCases(repostiroieas:  sl())),
   );
   sl.registerLazySingleton(
     () => DeletePost(sl()),
@@ -40,10 +40,10 @@ Future<void> init() async {
   );
 // Repostories
   sl.registerLazySingleton<PostRepostiroieas>(() => PostsRepostoriesImpl(
-      remoteDataSource: sl(), localDataSource: sl(), networkinfoImpl: sl()));
+      remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()));
 // Data Sources
   sl.registerLazySingleton<PostRemoteDataSource>(
-    () => PostRemoteDataSourceImpl(sl()),
+    () => PostRemoteDataSourceImpl(client:  sl()),
   );
   sl.registerLazySingleton<PostLocalDataSource>(
     () => PostLocalDataSourceImpl(sharedPreferences: sl()),

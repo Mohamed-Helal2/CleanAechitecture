@@ -3,6 +3,7 @@ import 'package:flutter_clean_architecture/core/theme/app_theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture/features/posts/presentation/bloc/add_delete_update/add_delete_update_post_cubit.dart';
 import 'package:flutter_clean_architecture/features/posts/presentation/bloc/getPost_cubit/posts_cubit.dart';
+import 'package:flutter_clean_architecture/features/posts/presentation/pages/posts_page.dart';
 import 'injection.dart' as di;
 
 void main() async {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<PostsCubit>(
-          create: (_) => di.sl<PostsCubit>(),
+          create: (_) => di.sl<PostsCubit>()..getallpost(),
         ),
         BlocProvider<AddDeleteUpdatePostCubit>(
           create: (_) => di.sl<AddDeleteUpdatePostCubit>(),
@@ -30,19 +31,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Material App',
         debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              'posts',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          body: Container(
-            child: const Center(
-              child: Text("Hellp clean"),
-            ),
-          ),
-        ),
+        home: const PostsPage(),
         theme: appTheme,
       ),
     );
