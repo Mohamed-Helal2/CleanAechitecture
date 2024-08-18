@@ -50,11 +50,11 @@ class AddDeleteUpdatePostCubit extends Cubit<AddDeleteUpdatePostState> {
 
   String _mapFailutrToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case ServerFailure():
+      case ServerFailure:
         return Server_Failure_Message;
-      case EmptyCacheFailure():
+      case EmptyCacheFailure:
         return Empty_Cached_Failure_Message;
-      case OffLineFailure():
+      case OffLineFailure:
         return Offline_Failed_Message;
       default:
         return 'Un Expected Error';

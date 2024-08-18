@@ -44,7 +44,7 @@ class PostsRepostoriesImpl implements PostRepostiroieas {
   @override
   Future<Either<Failure, Unit>> addpost(Post post) async {
     final PostModel postModel =
-        PostModel(id: post.id, title: post.title, body: post.body);
+        PostModel(title: post.title, body: post.body);
     return await _getMessage(
       () {
         return remoteDataSource.addpost(postModel);
@@ -79,7 +79,7 @@ class PostsRepostoriesImpl implements PostRepostiroieas {
         await delteOrUpdateOrAddPost();
         return right(unit);
       } on ServerException {
-        return Left(ServerFailure());
+        return left(ServerFailure());
       }
     } else {
       return left(OffLineFailure());

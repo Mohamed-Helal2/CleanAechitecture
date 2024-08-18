@@ -40,11 +40,11 @@ class PostsCubit extends Cubit<PostsState> {
 
   String _mapFailutrToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case ServerFailure():
+      case ServerFailure _:
         return Server_Failure_Message;
-      case EmptyCacheFailure():
+      case const (EmptyCacheFailure):
         return Empty_Cached_Failure_Message;
-      case OffLineFailure():
+      case OffLineFailure _:
         return Offline_Failed_Message;
       default:
         return 'Un Expected Error';

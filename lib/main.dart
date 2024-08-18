@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Material App',
         debugShowCheckedModeBanner: false,
-        home:const PostsPage(),
+        home: const PostsPage(),
         theme: appTheme,
       ),
     );
